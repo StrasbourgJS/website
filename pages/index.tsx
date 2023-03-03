@@ -40,7 +40,7 @@ export default function Home({ nextEvent, pastEvents }: HomeProps) {
         <Hero>
           <div className="flex flex-col lg:flex-row items-center">
             <div className="flex-1 text-white mb-4 lg:mb-0">
-              <Logo className="h-10 md:h-auto mb-4 lg:mb-0" />
+              <Logo className="h-10 md:h-auto mb-4" />
 
               <Place venue={nextEvent.venue} />
             </div>

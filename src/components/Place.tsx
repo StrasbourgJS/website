@@ -15,7 +15,7 @@ export const Place = ({ venue }: PlaceProps) => {
         href={googlemapLink}
         target="_blank"
         rel="noopener noreferrer"
-        className="block font-bold underline"
+        className="block font-bold underline leading-relaxed"
       >
         {venue.name}, {venue.address}
         <FiMapPin aria-hidden className="text-red-500 inline ml-2" />
