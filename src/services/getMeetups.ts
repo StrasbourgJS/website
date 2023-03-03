@@ -30,6 +30,7 @@ const query = gql`
       upcomingEvents(input: {}) {
         edges {
           node {
+            id
             title
             description
             eventUrl

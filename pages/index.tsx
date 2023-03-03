@@ -9,13 +9,18 @@ import { PreviousTalks } from "@/src/components/PreviousTalks";
 import { FaMeetup } from "react-icons/fa";
 import { getMeetups } from "@/src/services/getMeetups";
 import { Event } from "@/src/services/types";
+import { getMileStoneByEventId } from "@/src/services/getMileStoneByEventId";
+import { GithubIssue } from "@/src/components/GithubIssue";
 
 export async function getStaticProps() {
   const { nextEvent, pastEvents } = await getMeetups();
+  const issues = await getMileStoneByEventId(nextEvent.id);
+
   return {
     props: {
       nextEvent,
       pastEvents,
+      issues,
     }, // will be passed to the page component as props
   };
 }
@@ -23,9 +28,10 @@ export async function getStaticProps() {
 interface HomeProps {
   nextEvent: Event;
   pastEvents: Array<Event>;
+  issues: Array<any>;
 }
 
-export default function Home({ nextEvent, pastEvents }: HomeProps) {
+export default function Home({ nextEvent, pastEvents, issues }: HomeProps) {
   return (
     <>
       <Head>
@@ -52,26 +58,38 @@ export default function Home({ nextEvent, pastEvents }: HomeProps) {
             </div>
           </div>
 
-          <div className="drop-shadow-lg bg-white rounded-lg p-6 mt-12">
-            <div>
-              <h2 className="font-bold text-black pb-4 text-lg">
-                {nextEvent.title}
-              </h2>
-              <a
-                href={nextEvent.eventUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-primary underline text-sm flex flex-row items-center gap-2 -mt-4 mb-4"
-              >
-                <FaMeetup className="text-red-500 h-6 w-6" />
-                <span>Voir sur Meetups</span>
-              </a>
+          <section>
+            <div className="drop-shadow-lg bg-white rounded-lg p-6 mt-12">
+              <div>
+                <h2 className="font-bold text-black pb-4 text-lg">
+                  {nextEvent.title}
+                </h2>
+                <a
+                  href={nextEvent.eventUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-primary underline text-sm flex flex-row items-center gap-2 -mt-4 mb-4"
+                >
+                  <FaMeetup className="text-red-500 h-6 w-6" />
+                  <span>Voir sur Meetups</span>
+                </a>
+              </div>
+
+              <div
+                dangerouslySetInnerHTML={{ __html: nextEvent.description }}
+                className="prose prose-sm prose-slate prose-p:leading-relaxed"
+              />
             </div>
-            <div
-              dangerouslySetInnerHTML={{ __html: nextEvent.description }}
-              className="prose prose-sm prose-slate prose-p:leading-relaxed"
-            />
-          </div>
+
+            {issues?.map((issue) => (
+              <div
+                key={issue.id}
+                className="drop-shadow-lg bg-white rounded-lg p-6 mt-4"
+              >
+                <GithubIssue issue={issue} />
+              </div>
+            ))}
+          </section>
         </Hero>
 
         <div className="bg-gray-50">
