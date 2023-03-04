@@ -45,7 +45,7 @@ export default function Home({ nextEvent, pastEvents, issues }: HomeProps) {
         <NavBar />
         <Hero>
           <div className="flex flex-col items-center lg:flex-row">
-            <div className="flex-1 mb-4 text-white lg:mb-0">
+            <div className="flex-1 mb-4 text-white lg:mb-0 justify-center text-center lg:justify-start lg:text-left">
               <Logo className="h-10 mb-4 md:h-auto" />
 
               <Place venue={nextEvent.venue} />

@@ -17,7 +17,8 @@ export const Place = ({ venue }: PlaceProps) => {
         rel="noopener noreferrer"
         className="block font-bold underline leading-relaxed"
       >
-        {venue.name}, {venue.address}
+        {venue.name}
+        <br /> {venue.address}
         <FiMapPin aria-hidden className="text-red-500 inline ml-2" />
       </a>
     </div>
