@@ -61,7 +61,7 @@ export interface PreviousTalksProps {
 export const PreviousTalks = ({ talks }: PreviousTalksProps) => {
   return (
     <section
-      id="previous-talks"
+      aria-labelledby="previous-talks"
       className="max-w-5xl mx-auto px-4 w-full py-20"
     >
       <h2 id="previous-talks" className="text-3xl font-bold pb-6">
