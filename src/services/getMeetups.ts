@@ -1,5 +1,6 @@
-import { marked } from "marked";
 import { gql, GraphQLClient } from "graphql-request";
+
+import marked from "./marked";
 import type { Event } from "./types";
 
 const client = new GraphQLClient("https://www.meetup.com/gql");
@@ -76,9 +77,6 @@ export const getMeetups = async (): Promise<{
   const nextEvent =
     meetupEventsResponse?.group?.upcomingEvents?.edges?.[0]?.node || null;
 
-  const renderer = new marked.Renderer();
-  renderer.heading = (text, level) => `<h${level}>${text}</h${level}>`;
-  marked.setOptions({ renderer });
   nextEvent.description = marked(nextEvent.description);
 
   const pastEvents =

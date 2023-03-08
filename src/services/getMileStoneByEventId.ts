@@ -1,4 +1,4 @@
-import { marked } from "marked";
+import marked from "./marked";
 
 const headers = process.env.GITHUB_TOKEN
   ? {
@@ -21,18 +21,16 @@ export const getMileStoneByEventId = async (eventId: string) => {
     headers
   ).then((res) => res.json());
 
-  const renderer = new marked.Renderer();
-  renderer.heading = (text, level) => `<h${level}>${text}</h${level}>`;
-  marked.setOptions({ renderer });
-
   return (issues || []).map(transformIssue);
 };
 
 function transformIssue(issue: any) {
   const rawBody = (issue.body as string).replace(
+    // Only keep content
     /.*### Contenu(.*)### Durée.*/gms,
     "$1"
   );
+  // TODO: add extracting of level and talk duration
   const body = marked(rawBody);
 
   return {
