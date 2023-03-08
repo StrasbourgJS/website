@@ -14,9 +14,9 @@ export const GithubIssue = ({ issue }: any) => {
       <summary className="list-none cursor-pointer">
         <div className="flex flex-row items-center gap-4">
           {isOpen ? (
-            <FiChevronUp className={"h-6 w-6"} aria-hidden />
+            <FiChevronUp className={"h-6 w-6 flex-shrink-0"} aria-hidden />
           ) : (
-            <FiChevronDown className={"h-6 w-6"} aria-hidden />
+            <FiChevronDown className={"h-6 w-6 flex-shrink-0"} aria-hidden />
           )}
 
           <div className="flex-grow">
@@ -34,7 +34,11 @@ export const GithubIssue = ({ issue }: any) => {
             </p>
           </div>
           <a href={issue.html_url} target="_blank" rel="nofollow">
-            <FiArrowUpRight className={"h-9 w-9 p-2 hover:text-slate-400"} />
+            <FiArrowUpRight
+              className={
+                "h-6 w-6 p-1 lg:h-9 lg:w-9 lg:p-2 hover:text-slate-400"
+              }
+            />
           </a>
         </div>
       </summary>
