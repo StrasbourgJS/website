@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { Tag } from "./Tag";
-import { IoLogoNodejs } from "react-icons/io";
+import Image from "next/image";
 
 export interface HighlightProps {
   time: string;
@@ -23,8 +23,14 @@ export const NextMeetup = ({ time }: HighlightProps) => {
   }, [time]);
 
   return (
-    <div className="flex justify-center flex-col items-center font-mono">
-      <IoLogoNodejs className="h-48 w-48 text-yellow-300" />
+    <div className="flex flex-col items-center justify-center font-mono">
+      <Image
+        src="/logo.svg"
+        width="400"
+        height="400"
+        alt="logo de StrasbourgJS"
+        className="-mb-12"
+      />
       <Tag size="L">
         <time dateTime={time}>{formatted}</time>
       </Tag>
