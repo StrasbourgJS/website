@@ -20,7 +20,7 @@ const Talk = ({ talk }: TalkProps) => {
 
   return (
     <div
-      className="drop-shadow-md p-6 rounded-lg bg-white flex flex-col md:flex-row gap-8 items-center cursor-pointer hover:bg-gray-50 active:bg-gray-100"
+      className="flex flex-col items-center gap-8 p-6 bg-white rounded-lg cursor-pointer drop-shadow-md md:flex-row hover:bg-gray-50 active:bg-gray-100"
       tabIndex={-1}
       onClick={() => linkRef?.current?.click()}
     >
@@ -29,7 +29,7 @@ const Talk = ({ talk }: TalkProps) => {
         width="284px"
         src={talk.imageUrl}
         alt={talk.title}
-        className="rounded h-40"
+        className="h-40 rounded"
       />
       <div>
         <h3>
@@ -38,14 +38,14 @@ const Talk = ({ talk }: TalkProps) => {
             href={talk.eventUrl}
             target="_blank"
             rel="noopener noreferrer"
-            className="font-bold text-lg"
+            className="text-lg font-bold"
           >
             {talk.title}
           </a>
         </h3>
         <time
           dateTime={talk.dateTime}
-          className="text-gray-600 h-6 inline-block"
+          className="inline-block h-6 text-gray-600"
         >
           {formatted}
         </time>
@@ -62,10 +62,10 @@ export const PreviousTalks = ({ talks }: PreviousTalksProps) => {
   return (
     <section
       aria-labelledby="previous-talks"
-      className="max-w-5xl mx-auto px-4 w-full py-20"
+      className="w-full max-w-5xl px-4 py-20 mx-auto"
     >
-      <h2 id="previous-talks" className="text-3xl font-bold pb-6">
-        Talks precedents
+      <h2 id="previous-talks" className="pb-6 text-3xl font-bold">
+        Talks précédents
       </h2>
 
       <div className="flex flex-col gap-4">

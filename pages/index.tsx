@@ -55,6 +55,7 @@ export default function Home({ nextEvent, pastEvents, issues }: HomeProps) {
             <div className="justify-center flex-grow mb-4 text-center text-white lg:mb-0 lg:justify-start lg:text-left">
               <Place venue={nextEvent.venue} />
             </div>
+            <h1 className="sr-only">StrasbourgJS</h1>
 
             <div className="flex flex-auto text-sm md:justify-end">
               <IconGrid>
