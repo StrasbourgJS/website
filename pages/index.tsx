@@ -1,20 +1,29 @@
 import Head from "next/head";
 import { Hero } from "@/src/components/Hero";
-import { NextMeetup } from "@/src/components/Highlight";
-import { IconGrid } from "@/src/components/IconGrid/IconGrid";
-import { Logo } from "@/src/components/Logo";
 import { NavBar } from "@/src/components/NavBar";
-import { Place } from "@/src/components/Place";
 import { PreviousTalks } from "@/src/components/PreviousTalks";
-import { FaMeetup } from "react-icons/fa";
 import { getMeetups } from "@/src/services/getMeetups";
 import { Event } from "@/src/services/types";
 import { getMileStoneByEventId } from "@/src/services/getMileStoneByEventId";
-import { GithubIssue } from "@/src/components/GithubIssue";
+import { getMileStone } from "@/src/services/getMileStone";
+import { NextEventHero } from "@/src/components/Heros/NextEventHero";
+import { NoEventHero } from "@/src/components/Heros/NoEventHero";
 
 export async function getStaticProps() {
   const { nextEvent, pastEvents } = await getMeetups();
-  const issues = await getMileStoneByEventId(nextEvent.id);
+
+  if (!nextEvent) {
+    return {
+      props: {
+        nextEvent: null,
+        pastEvents,
+        issues: [],
+      },
+    };
+  }
+
+  const milestone = await getMileStone(nextEvent.id);
+  const issues = milestone ? await getMileStoneByEventId(milestone.number) : [];
 
   return {
     props: {
@@ -26,9 +35,10 @@ export async function getStaticProps() {
 }
 
 interface HomeProps {
-  nextEvent: Event;
+  nextEvent?: Event;
   pastEvents: Array<Event>;
   issues: Array<any>;
+  dueDateString?: string;
 }
 
 export default function Home({ nextEvent, pastEvents, issues }: HomeProps) {
@@ -51,51 +61,11 @@ export default function Home({ nextEvent, pastEvents, issues }: HomeProps) {
       <main className="h-full overflow-hidden">
         <NavBar />
         <Hero>
-          <div className="flex flex-col items-center lg:flex-row">
-            <div className="justify-center flex-grow mb-4 text-center text-white lg:mb-0 lg:justify-start lg:text-left">
-              <Place venue={nextEvent.venue} />
-            </div>
-            <h1 className="sr-only">StrasbourgJS</h1>
-
-            <div className="flex flex-auto text-sm md:justify-end">
-              <IconGrid>
-                <NextMeetup time={nextEvent.dateTime} />
-              </IconGrid>
-            </div>
-          </div>
-
-          <section>
-            <div className="p-6 mt-12 bg-white rounded-lg drop-shadow-lg">
-              <div>
-                <h2 className="pb-4 text-lg font-bold text-black">
-                  {nextEvent.title}
-                </h2>
-                <a
-                  href={nextEvent.eventUrl}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="flex flex-row items-center gap-2 mb-4 -mt-4 text-sm underline text-primary"
-                >
-                  <FaMeetup className="w-6 h-6 text-red-500" />
-                  <span>Voir sur Meetups</span>
-                </a>
-              </div>
-
-              <div
-                dangerouslySetInnerHTML={{ __html: nextEvent.description }}
-                className="prose-sm prose prose-slate prose-p:leading-relaxed"
-              />
-            </div>
-
-            {issues?.map((issue) => (
-              <div
-                key={issue.id}
-                className="p-6 mt-4 bg-white rounded-lg drop-shadow-lg"
-              >
-                <GithubIssue issue={issue} />
-              </div>
-            ))}
-          </section>
+          {nextEvent ? (
+            <NextEventHero nextEvent={nextEvent} issues={issues} />
+          ) : (
+            <NoEventHero />
+          )}
         </Hero>
 
         <div className="bg-gray-50">

@@ -1,24 +1,13 @@
 import marked from "./marked";
 
-const headers = process.env.GITHUB_TOKEN
-  ? {
+export const getMileStoneByEventId = async (milestoneNumber: string) => {
+  const issues = await fetch(
+    `https://api.github.com/repos/StrasbourgJs/talks/issues?milestone=${milestoneNumber}&state=all`,
+    {
       headers: {
         Authorization: `Bearer ${process.env.GITHUB_TOKEN}`,
       },
     }
-  : undefined;
-
-export const getMileStoneByEventId = async (eventId: string) => {
-  const endpoint = `https://api.github.com/repos/StrasbourgJS/talks/milestones`;
-  const data = await fetch(endpoint, headers).then((res) => res.json());
-
-  const milestone = data.find((d: any) =>
-    d.description.includes(`/events/${eventId}`)
-  );
-
-  const issues = await fetch(
-    `https://api.github.com/repos/StrasbourgJs/talks/issues?milestone=${milestone.number}&state=all`,
-    headers
   ).then((res) => res.json());
 
   return (issues || []).map(transformIssue);

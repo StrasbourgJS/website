@@ -68,21 +68,24 @@ type ResponseType = {
 };
 
 export const getMeetups = async (): Promise<{
-  nextEvent: Event;
+  nextEvent: Event | null;
   pastEvents: Array<Event>;
 }> => {
   const meetupEventsResponse = await client.request<ResponseType>(query, {
     id: 16222542,
   });
+
   const nextEvent =
     meetupEventsResponse?.group?.upcomingEvents?.edges?.[0]?.node || null;
-
-  nextEvent.description = marked(nextEvent.description);
 
   const pastEvents =
     meetupEventsResponse?.group?.pastEvents?.edges
       .map((it) => it.node)
       .reverse() || [];
+
+  if (nextEvent) {
+    nextEvent.description = marked(nextEvent.description);
+  }
 
   return { nextEvent, pastEvents };
 };

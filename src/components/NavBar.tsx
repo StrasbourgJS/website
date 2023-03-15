@@ -9,6 +9,16 @@ export const NavBar = () => {
       <Logo className="h-6 text-sm w-auto hidden md:block" />
 
       <ul className="flex flex-row gap-4 text-lg font-mono">
+        <li>
+          <a
+            href="https://www.twitch.tv/strasbourgjs"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="font-bold text-primary hover:bg-gray-50 active:bg-gray-100 px-3 py-2 block rounded-lg"
+          >
+            Twitch
+          </a>
+        </li>
         <li className="">
           <a
             href="https://github.com/StrasbourgJS/talks/issues/new/choose"
