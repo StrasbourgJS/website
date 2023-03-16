@@ -4,10 +4,11 @@ import { NavBar } from "@/src/components/NavBar";
 import { PreviousTalks } from "@/src/components/PreviousTalks";
 import { getMeetups } from "@/src/services/getMeetups";
 import { Event } from "@/src/services/types";
-import { getMileStoneByEventId } from "@/src/services/getMileStoneByEventId";
-import { getMileStone } from "@/src/services/getMileStone";
+import { getIssues } from "@/src/services/getIssues";
+import { getMileStones } from "@/src/services/getMileStones";
 import { NextEventHero } from "@/src/components/Heros/NextEventHero";
 import { NoEventHero } from "@/src/components/Heros/NoEventHero";
+import { transformIssue } from "@/src/services/transformIssue";
 
 export async function getStaticProps() {
   const { nextEvent, pastEvents } = await getMeetups();
@@ -22,14 +23,19 @@ export async function getStaticProps() {
     };
   }
 
-  const milestone = await getMileStone(nextEvent.id);
-  const issues = milestone ? await getMileStoneByEventId(milestone.number) : [];
+  const milestones = await getMileStones("open");
+  const milestone = milestones.find((d: any) =>
+    d.description.includes(`/events/${nextEvent.id}`)
+  );
+
+  const issues = milestone ? await getIssues(milestone.number) : [];
+  const formattedIssues = issues.map(transformIssue);
 
   return {
     props: {
       nextEvent,
       pastEvents,
-      issues,
+      issues: formattedIssues,
     }, // will be passed to the page component as props
   };
 }
