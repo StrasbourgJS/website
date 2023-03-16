@@ -3,10 +3,9 @@ import { Title } from "@/src/components/Admin/Title";
 import { GithubIssue } from "@/src/components/GithubIssue";
 import { DashboardLayout } from "@/src/layouts/DashboardLayout";
 import { getIssues } from "@/src/services/getIssues";
-
 import { guardAuth } from "@/src/services/guardAuth";
 import { transformIssue } from "@/src/services/transformIssue";
-import { User } from "@supabase/supabase-js";
+import { User } from "@/src/types";
 import { GetServerSideProps } from "next";
 
 export interface AdminPageProps {
@@ -31,7 +30,7 @@ export const getServerSideProps: GetServerSideProps = async ({ req }) => {
 
   return {
     props: {
-      user: user.data.user,
+      user,
       milestoneIssues: milestoneIssues.map(transformIssue),
     },
   };

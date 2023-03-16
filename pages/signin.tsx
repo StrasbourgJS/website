@@ -1,15 +1,15 @@
-import { signInWithGitHub } from "@/src/services/signInWithGitHub";
+import { getAuthCodeUrl } from "@/src/services/getAuthCodeUrl";
 
 export default function IndexPage() {
   return (
     <main className="flex items-center justify-center h-screen">
       <h1 className="sr-only">Accès au dashboard</h1>
-      <button
-        onClick={signInWithGitHub}
+      <a
+        href={getAuthCodeUrl()}
         className="py-1 px-4 border border-gray-200 rounded"
       >
         Login
-      </button>
+      </a>
     </main>
   );
 }

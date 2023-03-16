@@ -1,4 +1,4 @@
-import { User } from "@supabase/supabase-js";
+import { User } from "@/src/types";
 import Link from "next/link";
 
 export interface MainNavProps {
@@ -28,12 +28,12 @@ export const MainNav = ({ user }: MainNavProps) => {
 
         <li>
           <a
-            href={`https://github.com/${user.user_metadata.user_name}`}
+            href={`https://github.com/${user.login}`}
             className="px-4 py-2 bg-slate-800 rounded hover:bg-slate-700 active:bg-slate-600"
             target={"_blank"}
             rel="noopener noreferrer"
           >
-            @{user.user_metadata.user_name}
+            @{user.login}
           </a>
         </li>
       </ul>

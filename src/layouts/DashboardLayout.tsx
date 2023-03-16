@@ -1,4 +1,4 @@
-import { User } from "@supabase/supabase-js";
+import { User } from "@/src/types";
 import { MainNav } from "../components/Admin/MainNav";
 
 export interface DashboardLayoutProps {

@@ -6,7 +6,7 @@ import { getIssues } from "@/src/services/getIssues";
 import { getMileStoneByNumber } from "@/src/services/getMileStoneByNumber";
 import { guardAuth } from "@/src/services/guardAuth";
 import { transformIssue } from "@/src/services/transformIssue";
-import { User } from "@supabase/supabase-js";
+import { User } from "@/src/types";
 import { GetServerSideProps } from "next";
 
 export interface AdminPageProps {
@@ -39,7 +39,7 @@ export const getServerSideProps: GetServerSideProps = async ({
 
   return {
     props: {
-      user: user.data.user,
+      user,
       milestoneIssues: milestoneIssues.map(transformIssue),
       milestone,
     },

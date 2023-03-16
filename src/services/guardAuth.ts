@@ -1,27 +1,21 @@
-import { supabase } from "../supabase-server";
+import { getUser } from "./getUser";
 import { isUserInAcceptedOrg } from "./isUserInAcceptedOrg";
 
 export const guardAuth = async (cookies: any) => {
-  const refreshToken = cookies["my-refresh-token"];
-  const accessToken = cookies["my-access-token"];
+  const accessToken = cookies["accessToken"];
 
-  if (refreshToken && accessToken) {
-    await supabase.auth.setSession({
-      refresh_token: refreshToken,
-      access_token: accessToken,
-    });
-
-    const user = await supabase.auth.getUser();
+  if (accessToken) {
+    const user = await getUser(accessToken);
 
     if (!user) {
       return null;
     }
 
-    if (!(await isUserInAcceptedOrg(user.data.user?.user_metadata.user_name))) {
+    if (!(await isUserInAcceptedOrg(user.login))) {
       return null;
     }
 
-    return supabase.auth.getUser();
+    return user;
   }
 
   return null;

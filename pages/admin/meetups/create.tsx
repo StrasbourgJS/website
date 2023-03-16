@@ -1,7 +1,7 @@
 import { Title } from "@/src/components/Admin/Title";
 import { DashboardLayout } from "@/src/layouts/DashboardLayout";
 import { guardAuth } from "@/src/services/guardAuth";
-import { User } from "@supabase/supabase-js";
+import { User } from "@/src/types";
 import { GetServerSideProps } from "next";
 import { useRouter } from "next/router";
 
@@ -23,7 +23,7 @@ export const getServerSideProps: GetServerSideProps = async ({ req }) => {
 
   return {
     props: {
-      user: user.data.user,
+      user,
     },
   };
 };
