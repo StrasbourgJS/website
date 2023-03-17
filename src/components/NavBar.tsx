@@ -1,6 +1,14 @@
+import { FaMeetup, FaTwitch } from "react-icons/fa";
+import { AiOutlineYoutube } from "react-icons/ai";
 import { Logo } from "./Logo";
+import { RiDiscussLine } from "react-icons/ri";
 
 export const NavBar = () => {
+  const linkClass =
+    "font-bold text-primary hover:bg-gray-50 active:bg-gray-100 px-3 py-2 block rounded-lg flex flex-row items-center gap-2 justify-center";
+
+  const iconClass = "text-4xl md:text-lg";
+
   return (
     <nav
       aria-label="Navigation principale"
@@ -11,12 +19,24 @@ export const NavBar = () => {
       <ul className="flex flex-row gap-4 text-lg font-mono">
         <li>
           <a
+            href="https://www.youtube.com/@strasbourgjs"
+            target="_blank"
+            rel="noopener noreferrer"
+            className={linkClass}
+          >
+            <AiOutlineYoutube aria-label="Youtube" className={iconClass} />
+            <span className="hidden md:block">Youtube</span>
+          </a>
+        </li>
+        <li>
+          <a
             href="https://www.twitch.tv/strasbourgjs"
             target="_blank"
             rel="noopener noreferrer"
-            className="font-bold text-primary hover:bg-gray-50 active:bg-gray-100 px-3 py-2 block rounded-lg"
+            className={linkClass}
           >
-            Twitch
+            <FaTwitch aria-label="Twitch" className={iconClass} />
+            <span className="hidden md:block">Twitch</span>
           </a>
         </li>
         <li className="">
@@ -24,9 +44,13 @@ export const NavBar = () => {
             href="https://github.com/StrasbourgJS/talks/issues/new/choose"
             target="_blank"
             rel="noopener noreferrer"
-            className="font-bold text-primary hover:bg-gray-50 active:bg-gray-100 px-3 py-2 block rounded-lg"
+            className={linkClass}
           >
-            Un talk, une idee?
+            <RiDiscussLine
+              aria-label="Un talk, une idee?"
+              className={iconClass}
+            />
+            <span className="hidden md:block">Un talk, une idee?</span>
           </a>
         </li>
 
@@ -35,9 +59,10 @@ export const NavBar = () => {
             href="https://www.meetup.com/fr-FR/StrasbourgJS/"
             target="_blank"
             rel="noopener noreferrer"
-            className="font-bold text-primary hover:bg-gray-50 active:bg-gray-100 px-3 py-2 block rounded-lg"
+            className={linkClass}
           >
-            Meetups
+            <FaMeetup aria-label="Meetups" className={iconClass} />
+            <span className="hidden md:block">Meetups</span>
           </a>
         </li>
       </ul>
