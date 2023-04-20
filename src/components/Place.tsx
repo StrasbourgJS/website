@@ -19,7 +19,7 @@ export const Place = ({ venue }: PlaceProps) => {
       >
         {venue.name}
         <br /> {venue.address}
-        <FiMapPin aria-hidden className="inline ml-2 text-red-500" />
+        <FiMapPin aria-hidden className="inline ml-2" />
       </a>
     </div>
   );

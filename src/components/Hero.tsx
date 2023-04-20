@@ -6,7 +6,7 @@ export const Hero = ({ children }: HeroProps) => {
     <div
       className="py-20 flex items-center"
       style={{
-        backgroundImage: `linear-gradient(0.25turn, #5012FF 65%, #F2EEFF)`,
+        background: "#5012FF",
       }}
     >
       <div className="max-w-5xl mx-auto px-4 w-full">{children}</div>
