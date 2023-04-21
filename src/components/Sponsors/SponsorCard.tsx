@@ -20,7 +20,7 @@ export const SponsorCard = ({ url, img, children }: SponsorCardProps) => {
         ref={linkRef}
         target="_blank"
         rel="noopener referrer"
-        alt={children}
+        aria-label={children}
       >
         {img}
       </Link>
