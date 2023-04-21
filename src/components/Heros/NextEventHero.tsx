@@ -6,6 +6,8 @@ import { Place } from "../Place";
 import { Event } from "@/src/services/types";
 import { MeetupButton } from "../MeetupButton";
 import Link from "next/link";
+import { SponsorCard } from "../Sponsors/SponsorCard";
+import { NuxtLabs } from "../Sponsors/logos/NuxtLabs";
 
 export interface NextEventHeroProps {
   nextEvent: Event;
@@ -68,6 +70,15 @@ export const NextEventHero = ({ nextEvent, issues }: NextEventHeroProps) => {
           Vous souhaitez avoir votre nom dans la liste et présenter votre
           organisation en début de Meetup ? Envoyez nous un petit message !
         </p>
+
+        <div className="grid grid-cols-1 md:grid-cols-4 pt-10">
+          <SponsorCard
+            url={"https://nuxtlabs.com/"}
+            img={<NuxtLabs className="text-white h-10 w-auto" />}
+          >
+            NuxtLabs
+          </SponsorCard>
+        </div>
       </section>
     </>
   );
