@@ -11,7 +11,7 @@ export const GithubIssue = ({ issue }: any) => {
 
   return (
     <details onToggle={() => setIsOpen((state) => !state)}>
-      <summary className="list-none cursor-pointer">
+      <summary className="list-none cursor-pointer appearance-none">
         <div className="flex flex-row items-center gap-4">
           {isOpen ? (
             <FiChevronUp className={"h-6 w-6 flex-shrink-0"} aria-hidden />
