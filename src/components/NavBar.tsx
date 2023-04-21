@@ -2,6 +2,7 @@ import { FaMeetup, FaTwitch } from "react-icons/fa";
 import { AiOutlineYoutube } from "react-icons/ai";
 import { Logo } from "./Logo";
 import { RiDiscussLine } from "react-icons/ri";
+import Link from "next/link";
 
 export const NavBar = () => {
   const linkClass =
@@ -14,9 +15,11 @@ export const NavBar = () => {
       aria-label="Navigation principale"
       className="flex flex-row justify-between items-center px-4 md:px-8 py-4"
     >
-      <Logo className="h-6 text-sm w-auto hidden md:block" />
+      <Link href={"/"} aria-label="Page d'accueil">
+        <Logo className="h-6 text-sm w-auto hidden md:block" />
+      </Link>
 
-      <ul className="flex flex-row gap-4 text-lg font-mono">
+      <ul className="flex flex-row gap-4 text font-mono justify-center md:justify-end items-center w-full">
         <li>
           <a
             href="https://www.youtube.com/@strasbourgjs"
@@ -55,15 +58,15 @@ export const NavBar = () => {
         </li>
 
         <li>
-          <a
+          <Link
             href="https://www.meetup.com/fr-FR/StrasbourgJS/"
             target="_blank"
             rel="noopener noreferrer"
             className={linkClass}
           >
-            <FaMeetup aria-label="Meetups" className={iconClass} />
-            <span className="hidden md:block">Meetups</span>
-          </a>
+            <FaMeetup aria-label="Meetup" className={iconClass} />
+            <span className="hidden md:block">Meetup</span>
+          </Link>
         </li>
       </ul>
     </nav>

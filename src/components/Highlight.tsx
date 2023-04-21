@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react";
 import { Tag } from "./Tag";
-import Image from "next/image";
 
 export interface HighlightProps {
   time: string;
@@ -23,17 +22,10 @@ export const NextMeetup = ({ time }: HighlightProps) => {
   }, [time]);
 
   return (
-    <div className="flex flex-col items-center justify-center font-mono">
-      <Image
-        src="/logo.svg"
-        width="400"
-        height="400"
-        alt="logo de StrasbourgJS"
-        className="-mb-12"
-      />
-      <Tag size="L">
-        <time dateTime={time}>{formatted}</time>
-      </Tag>
-    </div>
+    <Tag size="M">
+      <time dateTime={time} className="font-mono">
+        {formatted}
+      </time>
+    </Tag>
   );
 };

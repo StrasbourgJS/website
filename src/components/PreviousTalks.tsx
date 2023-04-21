@@ -60,19 +60,19 @@ export interface PreviousTalksProps {
 
 export const PreviousTalks = ({ talks }: PreviousTalksProps) => {
   return (
-    <section
+    <div
       aria-labelledby="previous-talks"
       className="w-full max-w-5xl px-4 py-20 mx-auto"
     >
-      <h2 id="previous-talks" className="pb-6 text-3xl font-bold">
+      <h1 id="previous-talks" className="pb-6 text-3xl font-bold">
         Talks précédents
-      </h2>
+      </h1>
 
       <div className="flex flex-col gap-4">
         {talks.map((talk) => (
           <Talk key={talk.dateTime} talk={talk} />
         ))}
       </div>
-    </section>
+    </div>
   );
 };

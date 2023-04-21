@@ -11,13 +11,12 @@ import { NoEventHero } from "@/src/components/Heros/NoEventHero";
 import { transformIssue } from "@/src/services/transformIssue";
 
 export async function getStaticProps() {
-  const { nextEvent, pastEvents } = await getMeetups();
+  const { nextEvent } = await getMeetups();
 
   if (!nextEvent) {
     return {
       props: {
         nextEvent: null,
-        pastEvents,
         issues: [],
       },
     };
@@ -34,7 +33,6 @@ export async function getStaticProps() {
   return {
     props: {
       nextEvent,
-      pastEvents,
       issues: formattedIssues,
     }, // will be passed to the page component as props
   };
@@ -42,12 +40,11 @@ export async function getStaticProps() {
 
 interface HomeProps {
   nextEvent?: Event;
-  pastEvents: Array<Event>;
   issues: Array<any>;
   dueDateString?: string;
 }
 
-export default function Home({ nextEvent, pastEvents, issues }: HomeProps) {
+export default function Home({ nextEvent, issues }: HomeProps) {
   return (
     <>
       <Head>
@@ -73,10 +70,6 @@ export default function Home({ nextEvent, pastEvents, issues }: HomeProps) {
             <NoEventHero />
           )}
         </Hero>
-
-        <div className="bg-gray-50">
-          <PreviousTalks talks={pastEvents} />
-        </div>
       </main>
     </>
   );

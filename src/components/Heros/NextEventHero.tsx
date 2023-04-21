@@ -1,10 +1,10 @@
-import { FaMeetup } from "react-icons/fa";
 import { GithubIssue } from "../GithubIssue";
 import { NextMeetup } from "../Highlight";
 import { IconGrid } from "../IconGrid/IconGrid";
 import { Logo } from "../Logo";
 import { Place } from "../Place";
 import { Event } from "@/src/services/types";
+import { MeetupButton } from "../MeetupButton";
 
 export interface NextEventHeroProps {
   nextEvent: Event;
@@ -14,51 +14,56 @@ export interface NextEventHeroProps {
 export const NextEventHero = ({ nextEvent, issues }: NextEventHeroProps) => {
   return (
     <>
-      <div className="flex flex-col items-center lg:flex-row">
-        <div className="flex-1 mb-4 text-white lg:mb-0 justify-center text-center lg:justify-start lg:text-left">
-          <Logo className="h-10 mb-4 md:h-auto" />
-
-          <Place venue={nextEvent.venue} />
+      <div className="flex flex-col w-full text-white py-12 md:py-32">
+        <div className="flex justify-center md:justify-start">
+          <Logo className="h-10 mb-4 md:h-auto w-auto" />
         </div>
 
-        <div className="flex flex-auto text-sm md:justify-end">
-          <IconGrid>
-            <NextMeetup time={nextEvent.dateTime} />
-          </IconGrid>
+        <Place venue={nextEvent.venue} />
+
+        <div className="h-4" />
+
+        <div className="flex flex-col md:flex-row gap-4">
+          <NextMeetup time={nextEvent.dateTime} />
+          <MeetupButton href={nextEvent.eventUrl}>Je participe</MeetupButton>
         </div>
       </div>
 
-      <section>
-        <div className="p-6 mt-12 bg-white rounded-lg drop-shadow-lg">
-          <div>
-            <h2 className="pb-4 text-lg font-bold text-black">
-              {nextEvent.title}
-            </h2>
-            <a
-              href={nextEvent.eventUrl}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="flex flex-row items-center gap-2 mb-4 -mt-4 text-sm underline text-primary"
-            >
-              <FaMeetup className="w-6 h-6 text-red-500" />
-              <span>Voir sur Meetups</span>
-            </a>
-          </div>
+      <section className="mt-10">
+        <h2 className="text-3xl md:text-5xl font-bold text-white font-mono pb-4">
+          Au programme
+        </h2>
 
-          <div
-            dangerouslySetInnerHTML={{ __html: nextEvent.description }}
-            className="prose-sm prose prose-slate prose-p:leading-relaxed"
-          />
+        <div className="h-1 w-[120px] bg-white" />
+        <div className="pt-6">
+          {issues?.map((issue) => (
+            <div
+              key={issue.id}
+              className="p-6 mt-4 bg-black bg-opacity-10 rounded-lg"
+            >
+              <GithubIssue issue={issue} />
+            </div>
+          ))}
         </div>
 
-        {issues?.map((issue) => (
-          <div
-            key={issue.id}
-            className="p-6 mt-4 bg-white rounded-lg drop-shadow-lg"
-          >
-            <GithubIssue issue={issue} />
-          </div>
-        ))}
+        <div className="text-center pt-6">
+          <a href="/previous-talks" className="text-white px-10 py-4font-bold">
+            Voir les talks précédents
+          </a>
+        </div>
+      </section>
+
+      <section className="mt-16">
+        <h2 className="text-3xl md:text-5xl font-bold text-white font-mono pb-4">
+          Sponsoring
+        </h2>
+
+        <div className="h-1 w-[120px] bg-white" />
+
+        <p className="pt-6 text-slate-100 text-lg md:w-3/5">
+          Vous souhaitez avoir votre nom dans la liste et présenter votre
+          organisation en début de Meetup ? Envoyez nous un petit message !
+        </p>
       </section>
     </>
   );

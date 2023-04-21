@@ -15,16 +15,24 @@ export const GithubIssue = ({ issue }: any) => {
       className="list-none"
     >
       <summary className="list-none cursor-pointer appearance-none">
-        <div className="flex flex-row items-center gap-4">
+        <div className="flex flex-row  gap-4">
           {isOpen ? (
-            <FiChevronUp className={"h-6 w-6 flex-shrink-0"} aria-hidden />
+            <FiChevronUp
+              className={"h-6 w-6 flex-shrink-0 text-slate-300"}
+              aria-hidden
+            />
           ) : (
-            <FiChevronDown className={"h-6 w-6 flex-shrink-0"} aria-hidden />
+            <FiChevronDown
+              className={"h-6 w-6 flex-shrink-0 text-slate-300"}
+              aria-hidden
+            />
           )}
 
           <div className="flex-grow">
-            <h3 className="text-lg font-bold">{issue.title}</h3>
-            <p className="text-gray-600">
+            <h3 className="text-base md:text-2xl font-bold text-white">
+              {issue.title}
+            </h3>
+            <p className="text-slate-100">
               Par{" "}
               <a
                 href={issue.user.html_url}
@@ -36,10 +44,16 @@ export const GithubIssue = ({ issue }: any) => {
               </a>
             </p>
           </div>
-          <a href={issue.html_url} target="_blank" rel="nofollow">
+          <a
+            href={issue.html_url}
+            target="_blank"
+            rel="nofollow"
+            aria-label="Voir le detail sur Meetup"
+            className="hidden md:block"
+          >
             <FiArrowUpRight
               className={
-                "h-6 w-6 p-1 lg:h-9 lg:w-9 lg:p-2 hover:text-slate-400"
+                "h-6 w-6 p-1 lg:h-9 lg:w-9 lg:p-2 text-slate-300 hover:text-slate-400"
               }
             />
           </a>
@@ -47,7 +61,7 @@ export const GithubIssue = ({ issue }: any) => {
       </summary>
       <div
         dangerouslySetInnerHTML={{ __html: issue.body }}
-        className="pt-4 pl-10 leading-relaxed prose-sm prose prose-slate"
+        className="pt-4 pl-10 leading-relaxed prose text-slate-100 prose-strong:text-slate-100 prose-a:text-slate-100"
       />
     </details>
   );
