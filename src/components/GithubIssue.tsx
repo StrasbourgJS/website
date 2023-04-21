@@ -10,7 +10,10 @@ export const GithubIssue = ({ issue }: any) => {
   const [isOpen, setIsOpen] = useState(false);
 
   return (
-    <details onToggle={() => setIsOpen((state) => !state)}>
+    <details
+      onToggle={() => setIsOpen((state) => !state)}
+      className="list-none"
+    >
       <summary className="list-none cursor-pointer appearance-none">
         <div className="flex flex-row items-center gap-4">
           {isOpen ? (
