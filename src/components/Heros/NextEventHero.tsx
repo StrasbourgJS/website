@@ -5,6 +5,7 @@ import { Logo } from "../Logo";
 import { Place } from "../Place";
 import { Event } from "@/src/services/types";
 import { MeetupButton } from "../MeetupButton";
+import Link from "next/link";
 
 export interface NextEventHeroProps {
   nextEvent: Event;
@@ -47,9 +48,12 @@ export const NextEventHero = ({ nextEvent, issues }: NextEventHeroProps) => {
         </div>
 
         <div className="text-center pt-6">
-          <a href="/previous-talks" className="text-white px-10 py-4font-bold">
+          <Link
+            href="/previous-talks"
+            className="text-white px-10 py-4font-bold"
+          >
             Voir les talks précédents
-          </a>
+          </Link>
         </div>
       </section>
 
