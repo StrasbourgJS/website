@@ -22,10 +22,11 @@ export const NextMeetup = ({ time }: HighlightProps) => {
   }, [time]);
 
   return (
-    <Tag size="M">
-      <time dateTime={time} className="font-mono">
-        {formatted}
-      </time>
-    </Tag>
+    <time
+      dateTime={time}
+      className="font-mono  px-2 py-1 bg-black bg-opacity-20 rounded-lg"
+    >
+      {formatted}
+    </time>
   );
 };

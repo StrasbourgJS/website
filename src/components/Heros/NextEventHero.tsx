@@ -1,5 +1,5 @@
 import { GithubIssue } from "../GithubIssue";
-import { NextMeetup } from "../Highlight";
+import { NextMeetup } from "../NextMeetup";
 import { IconGrid } from "../IconGrid/IconGrid";
 import { Logo } from "../Logo";
 import { Place } from "../Place";
@@ -8,6 +8,7 @@ import { MeetupButton } from "../MeetupButton";
 import Link from "next/link";
 import { SponsorCard } from "../Sponsors/SponsorCard";
 import { NuxtLabs } from "../Sponsors/logos/NuxtLabs";
+import { TwitchButton } from "../TwitchButton";
 
 export interface NextEventHeroProps {
   nextEvent: Event;
@@ -22,13 +23,22 @@ export const NextEventHero = ({ nextEvent, issues }: NextEventHeroProps) => {
           <Logo className="h-10 mb-4 md:h-auto w-auto" />
         </div>
 
-        <Place venue={nextEvent.venue} />
+        <span className="text-center md:text-left font-mono leading-relaxed text-white md:text-3xl">
+          Prochain meet-up le{" "}
+          <strong>
+            <NextMeetup time={nextEvent.dateTime} />
+          </strong>{" "}
+          à<br />
+          <Place venue={nextEvent.venue} />
+        </span>
 
         <div className="h-4" />
 
         <div className="flex flex-col md:flex-row gap-4">
-          <NextMeetup time={nextEvent.dateTime} />
           <MeetupButton href={nextEvent.eventUrl}>Je participe</MeetupButton>
+          <TwitchButton href={"https://www.twitch.tv/strasbourgjs"}>
+            Voir sur Twitch
+          </TwitchButton>
         </div>
       </div>
 
