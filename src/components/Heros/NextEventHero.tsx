@@ -9,6 +9,7 @@ import Link from "next/link";
 import { SponsorCard } from "../Sponsors/SponsorCard";
 import { NuxtLabs } from "../Sponsors/logos/NuxtLabs";
 import { TwitchButton } from "../TwitchButton";
+import Image from "next/image";
 
 export interface NextEventHeroProps {
   nextEvent: Event;
@@ -28,8 +29,13 @@ export const NextEventHero = ({ nextEvent, issues }: NextEventHeroProps) => {
           <strong>
             <NextMeetup time={nextEvent.dateTime} />
           </strong>{" "}
-          à<br />
-          <Place venue={nextEvent.venue} />
+          {nextEvent.venue && (
+            <>
+              {" "}
+              à<br />
+              <Place venue={nextEvent.venue} />
+            </>
+          )}
         </span>
 
         <div className="h-4" />
@@ -81,12 +87,28 @@ export const NextEventHero = ({ nextEvent, issues }: NextEventHeroProps) => {
           organisation en début de Meetup ? Envoyez nous un petit message !
         </p>
 
-        <div className="grid grid-cols-1 md:grid-cols-4 pt-10">
+        <div className="grid grid-cols-1 md:grid-cols-4 pt-10 gap-4">
           <SponsorCard
             url={"https://nuxtlabs.com/"}
             img={<NuxtLabs className="text-white h-10 w-auto" />}
           >
             NuxtLabs
+          </SponsorCard>
+
+          <SponsorCard
+            url={"https://vercel.com"}
+            img={
+              <Image
+                width={212}
+                height={44}
+                src={
+                  "https://images.ctfassets.net/e5382hct74si/78Olo8EZRdUlcDUFQvnzG7/fa4cdb6dc04c40fceac194134788a0e2/1618983297-powered-by-vercel.svg"
+                }
+                alt="Vercel"
+              />
+            }
+          >
+            Vercel
           </SponsorCard>
         </div>
       </section>
