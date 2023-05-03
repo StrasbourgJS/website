@@ -96,7 +96,7 @@ export const NextEventHero = ({ nextEvent, issues }: NextEventHeroProps) => {
           </SponsorCard>
 
           <SponsorCard
-            url={"https://vercel.com"}
+            url={"https://vercel.com?utm_source=StrasbourgJs&utm_campaign=oss"}
             img={
               <Image
                 width={212}
