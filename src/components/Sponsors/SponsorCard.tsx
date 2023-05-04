@@ -13,7 +13,7 @@ export const SponsorCard = ({ url, img, children }: SponsorCardProps) => {
   return (
     <div
       onClick={() => linkRef?.current?.click()}
-      className="bg-black bg-opacity-10 rounded-lg p-6 flex items-center justify-center border-2 border-transparent hover:border-indigo-400 active:bg-opacity-20 cursor-pointer"
+      className="bg-white rounded-lg p-6 flex items-center justify-center border-4 border-transparent hover:border-indigo-400 active:bg-opacity-20 cursor-pointer text-black"
     >
       <Link
         href={url}

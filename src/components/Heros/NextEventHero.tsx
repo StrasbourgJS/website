@@ -10,6 +10,7 @@ import { SponsorCard } from "../Sponsors/SponsorCard";
 import { NuxtLabs } from "../Sponsors/logos/NuxtLabs";
 import { TwitchButton } from "../TwitchButton";
 import Image from "next/image";
+import { AlsaCreation } from "../Sponsors/logos/AlsaCreation";
 
 export interface NextEventHeroProps {
   nextEvent: Event;
@@ -90,7 +91,7 @@ export const NextEventHero = ({ nextEvent, issues }: NextEventHeroProps) => {
         <div className="grid grid-cols-1 md:grid-cols-4 pt-10 gap-4">
           <SponsorCard
             url={"https://nuxtlabs.com/"}
-            img={<NuxtLabs className="text-white h-10 w-auto" />}
+            img={<NuxtLabs className="h-10 w-auto" />}
           >
             NuxtLabs
           </SponsorCard>
@@ -109,6 +110,13 @@ export const NextEventHero = ({ nextEvent, issues }: NextEventHeroProps) => {
             }
           >
             Vercel
+          </SponsorCard>
+
+          <SponsorCard
+            url={"https://www.alsacreations.com/"}
+            img={<AlsaCreation className="h-10 w-auto" />}
+          >
+            AlsaCréations
           </SponsorCard>
         </div>
       </section>
