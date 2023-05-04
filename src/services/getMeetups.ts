@@ -94,6 +94,7 @@ export const getMeetups = async (): Promise<{
     hour: "2-digit",
     minute: "2-digit",
     hour12: false,
+    timeZone: "Europe/Paris",
   }).format(new Date(nextEvent.dateTime));
 
   return { nextEvent, pastEvents };
