@@ -14,8 +14,8 @@ export const AlsaCreation = (props: any) => (
       y2="88964.8672"
       gradientTransform="matrix(.082 -.066 .062 .078 -5832.869 -5490.074)"
     >
-      <stop offset="0" stop-color="#9DB928" />
-      <stop offset="1" stop-color="#B0CC3E" />
+      <stop offset="0" stopColor="#9DB928" />
+      <stop offset="1" stopColor="#B0CC3E" />
     </linearGradient>
     <path
       fill="url(#a)"
@@ -34,8 +34,8 @@ export const AlsaCreation = (props: any) => (
       y2="767.3889"
       gradientTransform="matrix(1.527 0 0 1.527 25.478 -414.562)"
     >
-      <stop offset="0" stop-color="#9DB928" />
-      <stop offset="1" stop-color="#B0CC3E" />
+      <stop offset="0" stopColor="#9DB928" />
+      <stop offset="1" stopColor="#B0CC3E" />
     </linearGradient>
     <path
       fill="url(#b)"
@@ -54,8 +54,8 @@ export const AlsaCreation = (props: any) => (
       y2="10752.2744"
       gradientTransform="matrix(.088 .057 -.054 .083 -5944.571 -4721.565)"
     >
-      <stop offset="0" stop-color="#9DB928" />
-      <stop offset="1" stop-color="#B0CC3E" />
+      <stop offset="0" stopColor="#9DB928" />
+      <stop offset="1" stopColor="#B0CC3E" />
     </linearGradient>
     <path
       fill="url(#c)"
