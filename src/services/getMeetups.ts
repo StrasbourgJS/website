@@ -85,17 +85,17 @@ export const getMeetups = async (): Promise<{
 
   if (nextEvent) {
     nextEvent.description = marked(nextEvent.description);
-  }
 
-  nextEvent.dateTime = new Intl.DateTimeFormat("fr-FR", {
-    day: "2-digit",
-    month: "2-digit",
-    year: "numeric",
-    hour: "2-digit",
-    minute: "2-digit",
-    hour12: false,
-    timeZone: "Europe/Paris",
-  }).format(new Date(nextEvent.dateTime));
+    nextEvent.dateTime = new Intl.DateTimeFormat("fr-FR", {
+      day: "2-digit",
+      month: "2-digit",
+      year: "numeric",
+      hour: "2-digit",
+      minute: "2-digit",
+      hour12: false,
+      timeZone: "Europe/Paris",
+    }).format(new Date(nextEvent.dateTime));
+  }
 
   return { nextEvent, pastEvents };
 };
