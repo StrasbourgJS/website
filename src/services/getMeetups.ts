@@ -3,32 +3,13 @@ import { gql, GraphQLClient } from "graphql-request";
 import marked from "./marked";
 import type { Event } from "./types";
 
-const client = new GraphQLClient("https://www.meetup.com/gql");
+const client = new GraphQLClient("https://api.meetup.com/gql-ext");
 const query = gql`
   query meetupEvents($id: ID!) {
     group(id: $id) {
       id
       name
-      pastEvents(input: { first: 5000 }) {
-        edges {
-          node {
-            title
-            description
-            eventUrl
-            dateTime
-            imageUrl
-            venue {
-              name
-              address
-              city
-              postalCode
-              lat
-              lng
-            }
-          }
-        }
-      }
-      upcomingEvents(input: {}) {
+      pastEvents: events(first: 5000, status: PAST) {
         edges {
           node {
             id
@@ -36,14 +17,24 @@ const query = gql`
             description
             eventUrl
             dateTime
-            imageUrl
-            venue {
-              name
-              address
-              city
-              postalCode
-              lat
-              lng
+            featuredEventPhoto {
+              id
+              baseUrl
+            }
+          }
+        }
+      }
+      upcomingEvents: events {
+        edges {
+          node {
+            id
+            title
+            description
+            eventUrl
+            dateTime
+            featuredEventPhoto {
+              id
+              baseUrl
             }
           }
         }
@@ -51,6 +42,18 @@ const query = gql`
     }
   }
 `;
+
+type MeetupEvent = {
+  id: string;
+  title: string;
+  description: string;
+  eventUrl: string;
+  dateTime: string;
+  featuredEventPhoto?: {
+    id: string;
+    baseUrl: string;
+  } | null;
+};
 
 type Edges<T> = {
   edges: Array<{
@@ -62,8 +65,8 @@ type ResponseType = {
   group: {
     id: string;
     name: string;
-    upcomingEvents: Edges<Event>;
-    pastEvents: Edges<Event>;
+    upcomingEvents: Edges<MeetupEvent>;
+    pastEvents: Edges<MeetupEvent>;
   };
 };
 
@@ -75,12 +78,38 @@ export const getMeetups = async (): Promise<{
     id: 16222542,
   });
 
+  const mapToEvent = (meetupEvent: MeetupEvent): Event => {
+    // Construct proper image URL from baseUrl and id
+    // Format: baseUrl/id/highres.jpeg
+    const imageUrl = meetupEvent.featuredEventPhoto?.baseUrl && meetupEvent.featuredEventPhoto?.id
+      ? `${meetupEvent.featuredEventPhoto.baseUrl}/${meetupEvent.featuredEventPhoto.id}/highres.jpeg`
+      : "";
+
+    return {
+      ...meetupEvent,
+      // shortDescription is not provided by the API, set to empty string for compatibility
+      shortDescription: "",
+      imageUrl,
+      // venue information is not available in the new API schema, using empty defaults
+      venue: {
+        name: "",
+        address: "",
+        city: "",
+        postalCode: "",
+        lat: "",
+        lng: "",
+      },
+    };
+  };
+
   const nextEvent =
-    meetupEventsResponse?.group?.upcomingEvents?.edges?.[0]?.node || null;
+    meetupEventsResponse?.group?.upcomingEvents?.edges?.[0]?.node
+      ? mapToEvent(meetupEventsResponse.group.upcomingEvents.edges[0].node)
+      : null;
 
   const pastEvents =
     meetupEventsResponse?.group?.pastEvents?.edges
-      .map((it) => it.node)
+      .map((it) => mapToEvent(it.node))
       .reverse() || [];
 
   if (nextEvent) {
