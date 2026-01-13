@@ -7,19 +7,6 @@ This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next
 
 ## Getting Started
 
-### Environment Variables
-
-This project requires environment variables to be configured. Copy `.env.example` to `.env.local` and fill in the required values:
-
-```bash
-cp .env.example .env.local
-```
-
-Required environment variables:
-- `MEETUP_API_TOKEN`: OAuth token for Meetup.com API access. Requires a Meetup Pro account to create an OAuth consumer. See [Meetup API Documentation](https://www.meetup.com/graphql/guide/) for details.
-
-### Running the Development Server
-
 First, run the development server:
 
 ```bash

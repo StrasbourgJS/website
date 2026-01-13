@@ -3,19 +3,13 @@ import { gql, GraphQLClient } from "graphql-request";
 import marked from "./marked";
 import type { Event } from "./types";
 
-const MEETUP_API_TOKEN = process.env.MEETUP_API_TOKEN;
-
-const client = new GraphQLClient("https://api.meetup.com/gql-ext", {
-  headers: {
-    ...(MEETUP_API_TOKEN && { authorization: `Bearer ${MEETUP_API_TOKEN}` }),
-  },
-});
+const client = new GraphQLClient("https://api.meetup.com/gql-ext");
 const query = gql`
   query meetupEvents($id: ID!) {
     group(id: $id) {
       id
       name
-      pastEvents(input: { first: 5000 }) {
+      pastEvents: events(input: { first: 5000, status: PAST }) {
         edges {
           node {
             title
@@ -34,7 +28,7 @@ const query = gql`
           }
         }
       }
-      upcomingEvents(input: {}) {
+      upcomingEvents: events(input: { status: UPCOMING }) {
         edges {
           node {
             id
@@ -77,12 +71,6 @@ export const getMeetups = async (): Promise<{
   nextEvent: Event | null;
   pastEvents: Array<Event>;
 }> => {
-  if (!MEETUP_API_TOKEN) {
-    console.warn(
-      "Warning: MEETUP_API_TOKEN is not set. Meetup API requires OAuth authentication. See .env.example for setup instructions."
-    );
-  }
-
   const meetupEventsResponse = await client.request<ResponseType>(query, {
     id: 16222542,
   });
