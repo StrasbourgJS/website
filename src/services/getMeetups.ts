@@ -77,8 +77,10 @@ export const getMeetups = async (): Promise<{
 
   const mapToEvent = (meetupEvent: MeetupEvent): Event => ({
     ...meetupEvent,
+    // shortDescription is not provided by the API, set to empty string for compatibility
     shortDescription: "",
     imageUrl: meetupEvent.featuredEventPhoto?.baseUrl || "",
+    // venue information is not available in the new API schema, using empty defaults
     venue: {
       name: "",
       address: "",
