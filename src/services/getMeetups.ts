@@ -23,7 +23,7 @@ const query = gql`
           }
         }
       }
-      upcomingEvents: events(status: UPCOMING) {
+      upcomingEvents: events {
         edges {
           node {
             id
