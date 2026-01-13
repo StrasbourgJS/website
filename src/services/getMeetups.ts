@@ -9,7 +9,7 @@ const query = gql`
     group(id: $id) {
       id
       name
-      pastEvents: events(input: { first: 5000, status: PAST }) {
+      pastEvents: events(first: 5000, status: PAST) {
         edges {
           node {
             id
@@ -17,19 +17,13 @@ const query = gql`
             description
             eventUrl
             dateTime
-            imageUrl
-            venue {
-              name
-              address
-              city
-              postalCode
-              lat
-              lng
+            featuredEventPhoto {
+              baseUrl
             }
           }
         }
       }
-      upcomingEvents: events(input: { status: UPCOMING }) {
+      upcomingEvents: events(status: UPCOMING) {
         edges {
           node {
             id
@@ -37,14 +31,8 @@ const query = gql`
             description
             eventUrl
             dateTime
-            imageUrl
-            venue {
-              name
-              address
-              city
-              postalCode
-              lat
-              lng
+            featuredEventPhoto {
+              baseUrl
             }
           }
         }
@@ -52,6 +40,17 @@ const query = gql`
     }
   }
 `;
+
+type MeetupEvent = {
+  id: string;
+  title: string;
+  description: string;
+  eventUrl: string;
+  dateTime: string;
+  featuredEventPhoto?: {
+    baseUrl: string;
+  } | null;
+};
 
 type Edges<T> = {
   edges: Array<{
@@ -63,8 +62,8 @@ type ResponseType = {
   group: {
     id: string;
     name: string;
-    upcomingEvents: Edges<Event>;
-    pastEvents: Edges<Event>;
+    upcomingEvents: Edges<MeetupEvent>;
+    pastEvents: Edges<MeetupEvent>;
   };
 };
 
@@ -76,12 +75,28 @@ export const getMeetups = async (): Promise<{
     id: 16222542,
   });
 
+  const mapToEvent = (meetupEvent: MeetupEvent): Event => ({
+    ...meetupEvent,
+    shortDescription: "",
+    imageUrl: meetupEvent.featuredEventPhoto?.baseUrl || "",
+    venue: {
+      name: "",
+      address: "",
+      city: "",
+      postalCode: "",
+      lat: "",
+      lng: "",
+    },
+  });
+
   const nextEvent =
-    meetupEventsResponse?.group?.upcomingEvents?.edges?.[0]?.node || null;
+    meetupEventsResponse?.group?.upcomingEvents?.edges?.[0]?.node
+      ? mapToEvent(meetupEventsResponse.group.upcomingEvents.edges[0].node)
+      : null;
 
   const pastEvents =
     meetupEventsResponse?.group?.pastEvents?.edges
-      .map((it) => it.node)
+      .map((it) => mapToEvent(it.node))
       .reverse() || [];
 
   if (nextEvent) {
