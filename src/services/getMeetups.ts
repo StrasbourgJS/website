@@ -78,21 +78,30 @@ export const getMeetups = async (): Promise<{
     id: 16222542,
   });
 
-  const mapToEvent = (meetupEvent: MeetupEvent): Event => ({
-    ...meetupEvent,
-    // shortDescription is not provided by the API, set to empty string for compatibility
-    shortDescription: "",
-    imageUrl: meetupEvent.featuredEventPhoto?.baseUrl || "",
-    // venue information is not available in the new API schema, using empty defaults
-    venue: {
-      name: "",
-      address: "",
-      city: "",
-      postalCode: "",
-      lat: "",
-      lng: "",
-    },
-  });
+  const mapToEvent = (meetupEvent: MeetupEvent): Event => {
+    // Construct proper image URL from baseUrl and id
+    // Format: baseUrl/id/widthxheight.format
+    let imageUrl = "";
+    if (meetupEvent.featuredEventPhoto?.baseUrl && meetupEvent.featuredEventPhoto?.id) {
+      imageUrl = `${meetupEvent.featuredEventPhoto.baseUrl}/${meetupEvent.featuredEventPhoto.id}/highres.jpeg`;
+    }
+
+    return {
+      ...meetupEvent,
+      // shortDescription is not provided by the API, set to empty string for compatibility
+      shortDescription: "",
+      imageUrl,
+      // venue information is not available in the new API schema, using empty defaults
+      venue: {
+        name: "",
+        address: "",
+        city: "",
+        postalCode: "",
+        lat: "",
+        lng: "",
+      },
+    };
+  };
 
   const nextEvent =
     meetupEventsResponse?.group?.upcomingEvents?.edges?.[0]?.node
