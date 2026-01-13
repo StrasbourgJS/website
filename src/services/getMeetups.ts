@@ -3,7 +3,13 @@ import { gql, GraphQLClient } from "graphql-request";
 import marked from "./marked";
 import type { Event } from "./types";
 
-const client = new GraphQLClient("https://www.meetup.com/gql");
+const MEETUP_API_TOKEN = process.env.MEETUP_API_TOKEN;
+
+const client = new GraphQLClient("https://api.meetup.com/gql-ext", {
+  headers: {
+    ...(MEETUP_API_TOKEN && { authorization: `Bearer ${MEETUP_API_TOKEN}` }),
+  },
+});
 const query = gql`
   query meetupEvents($id: ID!) {
     group(id: $id) {
