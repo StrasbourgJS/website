@@ -77,6 +77,12 @@ export const getMeetups = async (): Promise<{
   nextEvent: Event | null;
   pastEvents: Array<Event>;
 }> => {
+  if (!MEETUP_API_TOKEN) {
+    console.warn(
+      "Warning: MEETUP_API_TOKEN is not set. Meetup API requires OAuth authentication. See .env.example for setup instructions."
+    );
+  }
+
   const meetupEventsResponse = await client.request<ResponseType>(query, {
     id: 16222542,
   });
