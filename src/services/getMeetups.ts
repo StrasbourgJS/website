@@ -12,6 +12,7 @@ const query = gql`
       pastEvents: events(input: { first: 5000, status: PAST }) {
         edges {
           node {
+            id
             title
             description
             eventUrl
