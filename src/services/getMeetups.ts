@@ -80,11 +80,10 @@ export const getMeetups = async (): Promise<{
 
   const mapToEvent = (meetupEvent: MeetupEvent): Event => {
     // Construct proper image URL from baseUrl and id
-    // Format: baseUrl/id/widthxheight.format
-    let imageUrl = "";
-    if (meetupEvent.featuredEventPhoto?.baseUrl && meetupEvent.featuredEventPhoto?.id) {
-      imageUrl = `${meetupEvent.featuredEventPhoto.baseUrl}/${meetupEvent.featuredEventPhoto.id}/highres.jpeg`;
-    }
+    // Format: baseUrl/id/highres.jpeg
+    const imageUrl = meetupEvent.featuredEventPhoto?.baseUrl && meetupEvent.featuredEventPhoto?.id
+      ? `${meetupEvent.featuredEventPhoto.baseUrl}/${meetupEvent.featuredEventPhoto.id}/highres.jpeg`
+      : "";
 
     return {
       ...meetupEvent,
