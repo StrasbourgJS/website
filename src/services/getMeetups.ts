@@ -18,8 +18,8 @@ const query = gql`
             eventUrl
             dateTime
             featuredEventPhoto {
+              id
               baseUrl
-              source
             }
           }
         }
@@ -33,8 +33,8 @@ const query = gql`
             eventUrl
             dateTime
             featuredEventPhoto {
+              id
               baseUrl
-              source
             }
           }
         }
@@ -50,8 +50,8 @@ type MeetupEvent = {
   eventUrl: string;
   dateTime: string;
   featuredEventPhoto?: {
+    id: string;
     baseUrl: string;
-    source: string;
   } | null;
 };
 
@@ -82,7 +82,7 @@ export const getMeetups = async (): Promise<{
     ...meetupEvent,
     // shortDescription is not provided by the API, set to empty string for compatibility
     shortDescription: "",
-    imageUrl: meetupEvent.featuredEventPhoto?.source || meetupEvent.featuredEventPhoto?.baseUrl || "",
+    imageUrl: meetupEvent.featuredEventPhoto?.baseUrl || "",
     // venue information is not available in the new API schema, using empty defaults
     venue: {
       name: "",
